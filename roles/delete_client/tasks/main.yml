@@ -1,0 +1,4 @@
+---
+- include_tasks: disable.yml
+- include_tasks: configs.yml
+- include_tasks: delete.yml

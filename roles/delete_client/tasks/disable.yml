@@ -1,0 +1,7 @@
+---
+- name: Disable the client nspawn
+  systemd:
+    state: stopped
+    name: "systemd-nspawn@{{ client }}"
+    enabled: no
+

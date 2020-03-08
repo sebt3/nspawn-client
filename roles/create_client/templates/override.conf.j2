@@ -1,0 +1,5 @@
+[Service]
+Environment=DISPLAY=:0
+ExecStart=
+ExecStart=/usr/bin/systemd-nspawn --quiet --keep-unit --boot --link-journal=try-guest --settings=override --machine=%i --bind=/home/{{ user }}/.Xauthority --bind-ro=/tmp/.X11-unix -E DISPLAY=:0 --network-interface={{ interface }}
+

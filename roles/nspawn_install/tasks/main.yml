@@ -1,0 +1,11 @@
+- include_tasks: redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: restart systemd-sysctl
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: systemd-sysctl

@@ -1,0 +1,14 @@
+- name: Ensure dependencies are installed.
+  apt:
+    name:
+      - systemd-container
+      - debootstrap
+    state: present
+
+- name: Allow for unprivileged userNameSpace clone
+  lineinfile:
+    path: /etc/sysctl.d/nspawn.conf
+    regexp: '^kernel.unprivileged_userns_clone'
+    line: kernel.unprivileged_userns_clone=1
+
+

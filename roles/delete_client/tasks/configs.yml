@@ -1,0 +1,11 @@
+---
+- name: Delete config
+  file:
+    state: absent
+    path: "{{ item.path }}"
+  with_items:
+    - { path: "/etc/systemd/system/systemd-nspawn@{{ client }}.service.d/", desc: "Client custom directory" }
+    - { path: "/etc/systemd/nspawn/{{ client }}.nspawn", desc: "nspawn base" }
+  loop_control:
+    label: "{{ item.desc }}"
+

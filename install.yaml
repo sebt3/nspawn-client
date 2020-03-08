@@ -1,0 +1,5 @@
+---
+- name: Install
+  hosts: target
+  roles:
+    - nspawn_install

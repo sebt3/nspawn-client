@@ -1,0 +1,6 @@
+---
+- name: Delete the container image
+  file:
+    state: absent
+    path: "/var/lib/machines/{{ client }}"
+

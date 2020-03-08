@@ -1,0 +1,26 @@
+---
+
+- name: Create the user home directory if it does not exist
+  file:
+    path: "{{ item.dest }}"
+    state: directory
+    mode: '0700'
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  with_items:
+    - {  dest: "/var/lib/machines/{{ client }}/home/{{ user }}/", desc: 'Home' }
+    - {  dest: '/var/lib/machines/{{ client }}/home/{{ user }}/.config/systemd/user/bamfdaemon.service.d/',      desc: 'bamf override directory' }
+  loop_control:
+    label: "{{ item.desc }}"
+
+
+- name: Generate the user basic configuration
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: 'profile.j2',    dest: "/var/lib/machines/{{ client }}/home/{{ user }}/.bash_profile", desc: 'Basic bash profile' }
+    - { src: 'bamf.override.j2', dest: '/var/lib/machines/{{ client }}/home/{{ user }}/.config/systemd/user/bamfdaemon.service.d/override.conf',      desc: 'bamf override' }
+  loop_control:
+    label: "{{ item.desc }}"
+

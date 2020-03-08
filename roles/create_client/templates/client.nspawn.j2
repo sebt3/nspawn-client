@@ -1,0 +1,11 @@
+[Network]
+Interface={{ interface }}
+[Files]
+BindReadOnly=/tmp/.X11-unix
+Bind=/home/{{ user }}/.Xauthority
+[Exec]
+Boot=true
+Environment=DISPLAY=:0
+Capability=all
+SystemCallFilter=add_key keyctl
+

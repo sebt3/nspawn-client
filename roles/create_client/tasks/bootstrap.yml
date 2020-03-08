@@ -1,0 +1,6 @@
+---
+- name: Create the container image
+  shell: >
+    debootstrap --include=systemd-container "{{ dist }}" "/var/lib/machines/{{ client }}" "http://deb.debian.org/debian"
+
+

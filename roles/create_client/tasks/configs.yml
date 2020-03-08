@@ -1,0 +1,22 @@
+---
+- name: Create a directory if it does not exist
+  file:
+    path: "{{ item.path }}"
+    state: directory
+  with_items:
+    - { path: "/etc/systemd/nspawn/", desc: "nspawn base directory" }
+    - { path: "/etc/systemd/system/systemd-nspawn@{{ client }}.service.d/", desc: "Client custom directory" }
+  loop_control:
+    label: "{{ item.desc }}"
+
+- name: Generate the client nspawn configuration
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: 'override.conf.j2',    dest: "/etc/systemd/system/systemd-nspawn@{{ client }}.service.d/override.conf", desc: 'Client startup overrides' }
+    - { src: 'client.nspawn.j2', dest: '/etc/systemd/nspawn/{{ client }}.nspawn',      desc: 'nspawn configuration for this client' }
+    - { src: 'inter.j2',  dest: '/var/lib/machines/{{ client }}/etc/network/interfaces.d/ether',       desc: 'Network interface configuration' }
+  loop_control:
+    label: "{{ item.desc }}"
+

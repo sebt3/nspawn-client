@@ -1,0 +1,12 @@
+---
+- name: Copy user informations
+  shell: >
+    grep "{{ user }}" "/etc/{{ item.name }}">> "/var/lib/machines/{{ client }}/etc/{{ item.name }}"
+  with_items:
+    - { name: "passwd", desc: "Passwd file" }
+    - { name: "shadow", desc: "shadow file" }
+    - { name: "group", desc: "group file" }
+  loop_control:
+    label: "{{ item.desc }}"
+
+  

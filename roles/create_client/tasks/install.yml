@@ -1,0 +1,14 @@
+- name: Enable testing repos
+  lineinfile:
+    path: "/var/lib/machines/{{ client }}/etc/apt/sources.list"
+    regexp: '^deb http://deb.debian.org/debian testing main'
+    line: deb http://deb.debian.org/debian testing main
+
+- name: Update apt caches
+  shell: > 
+    systemd-nspawn -D "/var/lib/machines/{{ client }}" --machine "{{ client }}" apt-get update
+
+- name: Install the apps
+  shell: > 
+    systemd-nspawn -D "/var/lib/machines/{{ client }}" --machine "{{ client }}" apt-get -y --allow-downgrades install thunderbird-l10n-fr lightning thunderbird firefox xauth terminology firefox-esr-l10n-fr libreoffice-l10n-fr libreoffice python3=3.7.5-3 python3-minimal=3.7.5-3 libpython3-stdlib=3.7.5-3 plank sudo cifs-utils
+

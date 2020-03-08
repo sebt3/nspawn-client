@@ -1,0 +1,6 @@
+---
+- name: Create
+  hosts: target
+  roles:
+    - create_client
+    - start_client

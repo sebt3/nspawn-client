@@ -1,0 +1,5 @@
+---
+- name: Start the client nspawn
+  systemd:
+    state: started
+    name: "systemd-nspawn@{{ client }}"
